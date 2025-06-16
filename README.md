@@ -18,6 +18,7 @@ This Python script helps you easily download historical trading data (candles) f
 
 1️⃣ **Clone this repository**  
 git clone https://github.com/YOUR_USERNAME/YOUR_REPO_NAME.git
+
 cd YOUR_REPO_NAME
 
 2️⃣ **Install dependencies**
