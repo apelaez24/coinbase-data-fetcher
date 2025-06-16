@@ -54,6 +54,7 @@ The historical data will be saved in the data/ folder as a .csv file.
 ---
 
 📄 **Notes**
+
 Never share your .env file or API keys publicly!
 
 The script handles chunked requests to respect API limits. 
@@ -65,10 +66,13 @@ Existing CSVs are reused to save time on repeated runs.
 ---
 
 🤝 **Contributing**
+
 Feel free to fork, improve, and send pull requests!
+
 This tool is for anyone who wants simple access to historical crypto data.
 
 ---
 
 📜 **License**
+
 MIT License
