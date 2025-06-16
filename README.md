@@ -46,6 +46,8 @@ python coinbase_data.py
 
 ✅ The historical data will be saved in the data/ folder as a .csv file.
 
+---
+
 📄 **Notes**
 Never share your .env file or API keys publicly!
 
@@ -55,10 +57,13 @@ For extremely large time ranges, be patient — Coinbase’s API may rate limit 
 
 Existing CSVs are reused to save time on repeated runs.
 
+---
 
 🤝 **Contributing**
 Feel free to fork, improve, and send pull requests!
 This tool is for anyone who wants simple access to historical crypto data.
+
+---
 
 📜 **License**
 MIT License
