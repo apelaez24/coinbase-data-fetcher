@@ -1,0 +1,4 @@
+# Do not track secret keys or local data
+.env
+data/
+split_data.py
