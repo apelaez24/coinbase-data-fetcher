@@ -1,35 +1,28 @@
 # === 🔒 Secrets ===
 .env
 
-# === 🧹 Optional helper scripts not ready for prod ===
-split_data.py
-
-# === 📊 Production JSON (should NOT be published) ===
+# === 📊 JSON files to ignore ===
 data/last_timestamps.json
 
-# === ✅ Keep TEST JSON example ===
+# === ✅ Allow test JSON example ===
 !data/last_timestamps_TEST.json
 
-# === 📁 Ignore all CSV and JSON files inside /data (except allowed) ===
+# === 📁 Ignore ALL CSV & JSON in data (except exceptions) ===
 data/**/*.csv
 data/**/*.json
 
-# === ✅ Preserve folder structure with .gitkeep ===
-!data/.gitkeep
+# === ✅ Always allow .gitkeep to keep folder structure ===
 !data/**/.gitkeep
 
-# === 🧪 Ignore everything inside test_data/ (all files and folders) ===
+# === 🧪 Ignore test_data but keep .gitkeep ===
 test_data/**
-
-# === ✅ But keep .gitkeep files anywhere inside test_data ===
-!test_data/.gitkeep
 !test_data/**/.gitkeep
 
-# === ✅ Ignore backup CSVs but keep folder
+# === 📂 Ignore backups and SQL dumps but keep folders ===
 backup/*.csv
-!backup/.gitkeep
-
-# === ✅ Ignore all SQL backups in backup/sql but keep folder
 backup/sql/
+!backup/.gitkeep
 !backup/sql/.gitkeep
 
+# === 🧹 Optional helper scripts ===
+split_data.py
