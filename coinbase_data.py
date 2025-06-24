@@ -30,9 +30,9 @@ project_root = Path(__file__).parent  # NOT .parent.parent
 env_path = project_root / '.env'
 
 #===== Angel's Configurations =====
-SYMBOL = 'ETH-USD'   # Trading pair symbol (e.g., 'BTC-USD', 'ETH-USD', 'SOL-USD')
-TIMEFRAME = '1d'     # timeframe (e.g., '1m', '5m', '1h', '6h', '1d')
-WEEKS = 1000         # How many weeks of data to fetch. Adjust as needed
+SYMBOL = 'SOL-USD'   # Trading pair symbol (e.g., 'BTC-USD', 'ETH-USD', 'SOL-USD')
+TIMEFRAME = '1m'     # timeframe (e.g., '1m', '5m', '1h', '6h', '1d')
+WEEKS = 210         # How many weeks of data to fetch. Adjust as needed
 SAVE_DIR = project_root / 'data' #Directory to save the data files, we can update this later
 # Create save directory if it doesn't exist
 os.makedirs(SAVE_DIR, exist_ok=True)
