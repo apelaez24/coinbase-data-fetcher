@@ -14,42 +14,135 @@ This Python script helps you easily download historical trading data (candles) f
 
 ---
 
-## ⚙️ How to Use
+## 📁 Project Folder Structure
 
-1️⃣ **Clone this repository**  
+```
+COINBASE_DATA/
+├── data/
+│   ├── append/          # New data chunks waiting to be merged
+│   ├── backup/          # Verified backups of historical data
+│   ├── historical/      # Main source of truth (cleaned, full history)
+│   ├── raw/             # Raw fetched data before renaming
+│   ├── last_timestamps.json  # Tracks last fetched candle per pair
+│   ├── last_timestamps_TEST.json  # Sample JSON for test mode
+│   └── .gitkeep
+├── scripts/
+│   ├── coinbase_data.py                 # Fetch large historical chunks (initial or big pulls)
+│   ├── coinbase_data_resumable_all.py   # Resume fetch using last timestamps
+│   ├── check_last_timestamp.py          # Check latest timestamps in historical files
+│   ├── rename_raw_to_historical_files.py # Copy & rename raw data → historical
+│   ├── merge_append.py                  # Merge new 'append' data into historical
+│   ├── verify_and_backup.py             # Verify & sync backups for historical
+│   └── [other helpers...]
+├── test_data/                           # For test mode
+├── .env                                 # Contains your API credentials
+├── .gitignore
+├── README.md
+├── requirements.txt
+```
+
+
+## ⚙️ Setup
+
+### 1️⃣ Clone the Repo
+
+```
 git clone https://github.com/YOUR_USERNAME/YOUR_REPO_NAME.git
-
 cd YOUR_REPO_NAME
+```
 
+### 2️⃣ Install Dependencies
 
-2️⃣ **Install dependencies**
+```
 pip install -r requirements.txt
+```
 
+### 3️⃣ Create .env
 
-
-3️⃣ **Create a .env file**
 Add your Coinbase API credentials:
 
+```
 COINBASE_API_KEY="organizations/{org_id}/apiKeys/{key_id}"
-
 COINBASE_API_SECRET="-----BEGIN EC PRIVATE KEY-----\nYOUR PRIVATE KEY\n-----END EC PRIVATE KEY-----\n"
+```
 
 
 
-4️⃣ **Edit coinbase_data.py**
-Inside the script, adjust:
+## 🚦 How to Use
 
-- SYMBOL (e.g., 'BTC-USD')
+### ✅ Initial Setup: One-Time Historical Pull
 
-- TIMEFRAME (e.g., '1h')
+1. **Run `coinbase_data.py`**  
+   Fetches large blocks of historical data and saves them to `data/raw`.
 
-- WEEKS (number of weeks back to fetch data)
+   ```
+   python scripts/coinbase_data.py
+   ```
+
+2. **Rename & Organize Raw Data**  
+   Use `rename_raw_to_historical_files.py` to copy & rename raw files into the `historical` folder with clean names:
+
+   ```
+   python scripts/rename_raw_to_historical_files.py
+   ```
+
+   ✔️ Example rename:  
+   `BTCUSD-1d=raw-data.csv` → `BTCUSD-1d=historical-data.csv`
+
+3. **Backup**  
+   (Optional but recommended): Copy all files from `historical` to `backup`. Then clear out `raw` to keep things tidy.
+
+### ✅ Regular Updates (Ongoing)
+
+When you want to refresh your data for existing pairs:
 
 
-5️⃣ **Run the script**
-python coinbase_data.py
+1. **Check Last Timestamps**  
+   Runs a check on all historical files and records the most recent timestamp for each pair in `last_timestamps.json`.
 
-The historical data will be saved in the data/ folder as a .csv file.
+   ```
+   python scripts/check_last_timestamp.py
+   ```
+
+2. **Fetch New Data**  
+   Uses the saved timestamps to download only the new missing candles. Saves fresh chunks to data/append.
+
+   ```
+   python scripts/coinbase_data_resumable_all.py
+   ```
+
+3. **Merge New Data**  
+   Merges the new chunks from append into the corresponding historical files in historical. Ensures history stays continuous.
+   
+   ```
+   python scripts/merge_append.py
+   ```
+
+4. **Verify & Backup**  
+   Compares updated historical files to existing backups. Renames or overwrites backup files to match the latest version.
+
+   ```
+   python scripts/verify_and_backup.py
+   ```
+
+---
+
+## ✅ Key Scripts Quick Reference
+
+| Script | Purpose |
+|--------|---------|
+| `coinbase_data.py` | Fetch large initial historical data |
+| `check_last_timestamp.py` | Inspect last candle per pair |
+| `coinbase_data_resumable_all.py` | Get only missing candles |
+| `rename_raw_to_historical_files.py` | Copy & rename raw → historical |
+| `merge_append.py` | Append new chunks to historical |
+| `verify_and_backup.py` | Sync backups with historical |
+
+---
+
+## 🏁 You're Ready!
+
+Happy clean crypto data collecting 🚀📊
 
 ---
 

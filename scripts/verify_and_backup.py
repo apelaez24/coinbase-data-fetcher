@@ -31,8 +31,8 @@ for hist_file in historical_dir.glob("*.csv"):
     backup_file = backup_dir / target_backup_name
 
     # --- Check for legacy backup files ---
-    # E.g. BTCUSD-1d=1000wks-data.csv → BTCUSD-1d=backup.csv
-    legacy_matches = list(backup_dir.glob(f"{pair_timeframe}=*wks*-data.csv"))
+    # E.g. BTCUSD-1d=raw-data.csv → BTCUSD-1d=backup.csv
+    legacy_matches = list(backup_dir.glob(f"{pair_timeframe}=raw-data.csv"))
     for legacy in legacy_matches:
         legacy.rename(backup_file)
         print(f"🔑 Renamed old backup: {legacy.name} → {backup_file.name}")

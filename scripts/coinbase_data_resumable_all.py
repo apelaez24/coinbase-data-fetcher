@@ -1,7 +1,7 @@
 '''
 This script fetches data based on last timestamps. It first reads the last timestamps from a JSON file,
 then fetches new data from Coinbase for each pair and timeframe, then saves it to a "new-data.csv",
-which is saved to the following directory:
+which is saved to the following directory to be appended later:
 "SAVE_DIR = project_root / "data" / "append""
 
 '''
@@ -17,15 +17,20 @@ import requests
 import math
 
 # === CONFIG ===
-TEST_MODE = False  # <--- we want production mode
+TEST_MODE = False  # <--- Production!
 MAX_LOOKBACK = datetime.timedelta(days=7)
 
-# === PATHS ===
-project_root = Path(__file__).resolve().parent
+# === CLEAN PROJECT ROOT ===
+project_root = Path(__file__).resolve().parent.parent  # <-- up from /scripts to main
+
 env_path = project_root / ".env"
 
-LAST_TS_FILE = project_root / ("last_timestamps_TEST.json" if TEST_MODE else "last_timestamps.json")
+# === JSON path (inside /data)
+LAST_TS_FILE = project_root / "data" / (
+    "last_timestamps_TEST.json" if TEST_MODE else "last_timestamps.json"
+)
 
+# === SAVE DIR (inside /data)
 if TEST_MODE:
     SAVE_DIR = project_root / "test_data"
 else:
@@ -142,8 +147,22 @@ for id in json_data.keys():
 
     # === Update JSON ===
     new_latest = new_df.index.max().isoformat() if not new_df.empty else best_last.isoformat()
-    json_data[id] = new_latest
-    print(f"✅ Updated state: {new_latest}")
+    
+    if all_candles:
+        # build new_df, save it, get max timestamp
+        new_df = pd.DataFrame(all_candles)
+        new_df.columns = ["datetime", "open", "high", "low", "close", "volume"]
+        new_df["datetime"] = pd.to_datetime(new_df["datetime"], unit="s")
+        new_df = new_df.set_index("datetime").sort_index()
+        new_df.to_csv(save_file)
+        print(f"✅ NEW chunk saved: {save_file}")
+
+        new_latest = new_df.index.max().isoformat()
+        json_data[id] = new_latest
+        print(f"✅ Updated state: {new_latest}")
+    else:
+        print(f"⏸️  No new candles to save.")
+    
 
 # === Write updated JSON ===
 with open(LAST_TS_FILE, "w") as f:

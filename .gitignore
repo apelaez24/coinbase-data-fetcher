@@ -10,19 +10,18 @@ data/last_timestamps.json
 # === ✅ Keep TEST JSON example ===
 !data/last_timestamps_TEST.json
 
-# === 📁 Ignore all CSVs from any subfolder inside /data ===
+# === 📁 Ignore all CSV and JSON files inside /data (except allowed) ===
 data/**/*.csv
-
-# === 📂 Ignore all JSON files in /data unless explicitly allowed above ===
 data/**/*.json
 
 # === ✅ Preserve folder structure with .gitkeep ===
 !data/.gitkeep
 !data/**/.gitkeep
 
-# === 🧪 Ignore everything inside test_data/ including nested folders like test scripts/ ===
+# === 🧪 Ignore everything inside test_data/ (all files and folders) ===
 test_data/**
 
-# === ✅ But keep any .gitkeep files anywhere inside test_data ===
+# === ✅ But keep .gitkeep files anywhere inside test_data ===
 !test_data/.gitkeep
 !test_data/**/.gitkeep
+
