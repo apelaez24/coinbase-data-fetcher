@@ -1,4 +1,4 @@
-# Coinbase Historical Crypto Data Fetcher
+# Coinbase Historical Crypto Data Fetcher  
 
 📈 **Description**  
 This Python script helps you easily download historical trading data (candles) for any Coinbase trading pair, like BTC-USD or ETH-USD, using Coinbase’s API.
@@ -34,7 +34,7 @@ COINBASE_DATA/
 │   ├── merge_append.py                  # Merge new 'append' data into historical
 │   ├── verify_and_backup.py             # Verify & sync backups for historical
 │   └── [other helpers...]
-├── test_data/                           # For test mode
+├── test_data/                           # For testing/test mode
 ├── .env                                 # Contains your API credentials
 ├── .gitignore
 ├── README.md
