@@ -32,3 +32,4 @@ backup/*.csv
 # === ✅ Ignore all SQL backups in backup/sql but keep folder
 backup/sql/
 !backup/sql/.gitkeep
+
