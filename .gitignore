@@ -25,3 +25,10 @@ test_data/**
 !test_data/.gitkeep
 !test_data/**/.gitkeep
 
+# === ✅ Ignore backup CSVs but keep folder
+backup/*.csv
+!backup/.gitkeep
+
+# === ✅ Ignore all SQL backups in backup/sql but keep folder
+backup/sql/
+!backup/sql/.gitkeep
