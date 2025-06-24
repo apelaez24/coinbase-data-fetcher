@@ -30,26 +30,34 @@ project_root = Path(__file__).parent  # NOT .parent.parent
 env_path = project_root / '.env'
 
 #===== Angel's Configurations =====
-SYMBOL = 'SOL-USD'   # Trading pair symbol (e.g., 'BTC-USD', 'ETH-USD', 'SOL-USD')
-TIMEFRAME = '1m'     # timeframe (e.g., '1m', '5m', '1h', '6h', '1d')
-WEEKS = 210         # How many weeks of data to fetch. Adjust as needed
+SYMBOL = 'BTC-USD'   # Trading pair symbol (e.g., 'BTC-USD', 'ETH-USD', 'SOL-USD')
+TIMEFRAME = '1d'     # timeframe (e.g., '1m', '5m', '1h', '6h', '1d')
+WEEKS = 2         # How many weeks of data to fetch. Adjust as needed
 SAVE_DIR = project_root / 'data' #Directory to save the data files, we can update this later
 # Create save directory if it doesn't exist
 os.makedirs(SAVE_DIR, exist_ok=True)
 print(f"📁 Save directory ready: {SAVE_DIR}")
 
+# === Get project root ===
+project_root = Path(__file__).resolve().parent.parent  # 👈 from /scripts up to root
 
+# === .env file location ===
+env_path = project_root / ".env"
 
-print(f"🔍 Looking for .env file in: {project_root}")
-print(f"📁 .env file exists: {'✅' if env_path.exists() else '❌'}")
+# === Directory for saving raw data ===
+SAVE_DIR = project_root / "data" / "raw"  # 👈 place raw fetches in /data/raw
 
-# Load environment variables from the specific path
+# === Make sure it exists ===
+os.makedirs(SAVE_DIR, exist_ok=True)
+
+print(f"📁 Save directory ready: {SAVE_DIR}")
+print(f"🔍 Looking for .env file in: {env_path}")
+
+# === Load env ===
 load_dotenv(env_path)
 
-# Debug prints for API credentials (without revealing them)
 api_key = os.getenv('COINBASE_API_KEY')
 api_secret = os.getenv('COINBASE_API_SECRET')
-
 print("🔑 API Key loaded:", "✅" if api_key else "❌")
 print("🔒 API Secret loaded:", "✅" if api_secret else "❌")
 
@@ -101,8 +109,10 @@ def get_historical_data(symbol, timeframe, weeks):
     print(f"🔍 Script is fetching {weeks} weeks of {timeframe} data for {symbol}")
 
     # Where to save
-    output_file = os.path.join(SAVE_DIR, f"{symbol.replace('-', '')}-{timeframe}={weeks}wks-data.csv")
-    if os.path.exists(output_file):
+    output_file = SAVE_DIR / f"{symbol.replace('-', '')}-{timeframe}=raw-data.csv"
+    output_file.parent.mkdir(parents=True, exist_ok=True)  # always safe!
+
+    if output_file.exists():
         print(f"📁 Found existing data file!")
         return pd.read_csv(output_file)
 
