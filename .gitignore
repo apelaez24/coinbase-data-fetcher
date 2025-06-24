@@ -1,4 +1,16 @@
-# Do not track secret keys or local data
+# Ignore secrets
 .env
-data/
+
+# Ignore everything inside data folder, but keep the folder itself
+data/**
+!data/.gitkeep
+
+# Ignore everything inside test_data folder, but keep the folder itself
+test_data/**
+!test_data/.gitkeep
+
+# Ignore helper script if you want
 split_data.py
+
+# Ignore live production timestamp file only
+last_timestamps.json
