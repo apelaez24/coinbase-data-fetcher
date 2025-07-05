@@ -284,7 +284,5 @@ MIT License
 
 Happy clean crypto data collecting 🚀📊
 
-```
-
 ---
 
