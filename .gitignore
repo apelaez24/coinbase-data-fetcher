@@ -1,6 +1,9 @@
 # === 🔒 Secrets ===
 .env
 
+# === 🧹 Optional helper scripts not ready for prod ===
+split_data.py
+
 # === 📊 JSON files to ignore ===
 data/last_timestamps.json
 
@@ -27,3 +30,19 @@ backup/sql/
 backup/sql/
 !backup/sql/.gitkeep
 
+data/backup/sql/*
+!data/backup/sql/.gitkeep
+
+scripts/archive/
+
+# === 🚫 Ignore ALL .sql and .gz database backups ===
+*.sql
+*.sql.gz
+
+
+# === 🚫 Ignore Postgres dump folders ===
+pg_dump/
+pg_restore/
+
+# === 🚫 Ignore archive scripts folder ===
+scripts/archive/
