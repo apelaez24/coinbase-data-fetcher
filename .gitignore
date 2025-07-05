@@ -18,11 +18,12 @@ data/**/*.json
 test_data/**
 !test_data/**/.gitkeep
 
-# === 📂 Ignore backups and SQL dumps but keep folders ===
+# === ✅ Ignore backup CSVs but keep folder
 backup/*.csv
 backup/sql/
 !backup/.gitkeep
+
+# === ✅ Ignore all SQL backups in backup/sql but keep folder
+backup/sql/
 !backup/sql/.gitkeep
 
-# === 🧹 Optional helper scripts ===
-split_data.py
