@@ -9,6 +9,13 @@ import os
 from pathlib import Path
 import subprocess
 import time
+import sys
+
+# === Fix Windows Unicode encoding for emojis ===
+if sys.platform == "win32":
+    import io
+    sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8')
+    sys.stderr = io.TextIOWrapper(sys.stderr.buffer, encoding='utf-8')
 
 # === Start timer ===
 start_time = time.time()

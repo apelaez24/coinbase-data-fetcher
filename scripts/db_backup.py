@@ -12,6 +12,13 @@ from pathlib import Path
 import subprocess
 import gzip
 import shutil
+import sys
+
+# === Fix Windows Unicode encoding for emojis ===
+if sys.platform == "win32":
+    import io
+    sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8')
+    sys.stderr = io.TextIOWrapper(sys.stderr.buffer, encoding='utf-8')
 
 # === Load .env ===
 project_root = Path(__file__).resolve().parent.parent

@@ -15,6 +15,13 @@ import requests
 import time
 import psycopg2
 from psycopg2.extras import execute_values
+import sys
+
+# === Fix Windows Unicode encoding for emojis ===
+if sys.platform == "win32":
+    import io
+    sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8')
+    sys.stderr = io.TextIOWrapper(sys.stderr.buffer, encoding='utf-8')
 
 # === Load .env ===
 project_root = Path(__file__).resolve().parent.parent
